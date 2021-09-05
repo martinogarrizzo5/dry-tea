@@ -1,0 +1,83 @@
+@import "mediaQuery";
+
+.landing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 120rem;
+    padding: 4rem 4rem 0;
+    margin: 0 auto;
+
+    @include mediaQuery($laptop-sm) {
+        flex-direction: column;
+        padding: 6rem 6rem 0;
+    }
+
+    @include mediaQuery($phone-lg) {
+        padding: 4rem 4rem 0;
+    }
+
+    @include mediaQuery($phone) {
+        padding: 4rem 2rem 0;
+    }
+
+    &__title-section {
+        margin-bottom: 10rem;
+
+        @include mediaQuery($laptop-sm) {
+            text-align: center;
+            margin-bottom: 0;
+        }
+        &__title {
+            font-size: 5.8rem;
+            letter-spacing: 1px;
+            font-weight: 400;
+            font-family: "Ultra", serif;
+            color: white;
+
+            @include mediaQuery($phone-lg) {
+                font-size: 4rem;
+            }
+
+            @include mediaQuery($phone) {
+                font-size: 3.8rem;
+            }
+        }
+        &__sub-title {
+            font-size: 2.2rem;
+            line-height: 130%;
+            letter-spacing: 1.5px;
+            color: rgb(199, 199, 199);
+            margin: 0.5rem 0 2.5rem;
+
+            @include mediaQuery($phone-lg) {
+                font-size: 1.8rem;
+            }
+        }
+    }
+
+    &__img-section {
+        height: 80rem;
+
+        @include mediaQuery($laptop-sm) {
+            transform: translateY(-5rem);
+        }
+
+        @include mediaQuery($phone-lg) {
+            height: auto;
+            width: 100%;
+            transform: none;
+        }
+
+        &__img {
+            height: 100%;
+            object-fit: cover;
+
+            @include mediaQuery($phone-lg) {
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+}
