@@ -10,8 +10,11 @@ import "./Header.scss";
 interface HeaderProps extends RouteComponentProps {}
 
 const Header: FC<HeaderProps> = (props) => {
-    const isNavShown = useSelector((state: RootState) => state.ui.isNavShown);
     const dispatch: AppDispatch = useDispatch();
+    const searchedCocktail = useSelector(
+        (state: RootState) => state.cocktails.searchedCocktail
+    );
+    const isNavShown = useSelector((state: RootState) => state.ui.isNavShown);
 
     const goToHome = () => {
         if (props.location.pathname !== "/") props.history.push("/");
@@ -43,7 +46,11 @@ const Header: FC<HeaderProps> = (props) => {
                     HOME
                 </NavLink>
                 <NavLink
-                    to="/search"
+                    to={
+                        searchedCocktail
+                            ? `/search?cocktail=${searchedCocktail}`
+                            : "/search"
+                    }
                     className="header__links__link"
                     activeClassName="header__links__link--active"
                 >

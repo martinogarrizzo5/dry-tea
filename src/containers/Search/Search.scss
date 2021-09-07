@@ -1,4 +1,18 @@
+@import "mediaQuery";
+
 .search {
     display: flex;
     flex-direction: column;
+
+    &__cocktails {
+        padding: 4rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+        grid-auto-rows: 30rem;
+        gap: 4rem;
+
+        @include mediaQuery($phone) {
+            padding: 2.5rem;
+        }
+    }
 }
