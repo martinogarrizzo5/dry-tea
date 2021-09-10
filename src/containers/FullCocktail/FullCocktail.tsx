@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { RootState } from "../../store/store";
 import "./FullCocktail.scss";
 import Image from "../../components/Image/Image";
+import Spinner from "../../components/Spinner/Spinner";
 
 const FullCocktail: FC = () => {
     const cocktails = useSelector(
@@ -38,6 +39,7 @@ const FullCocktail: FC = () => {
                 baseName: selectedCocktail[`strIngredient${i}`],
                 fullName:
                     (selectedCocktail[`strMeasure${i}`] || "") +
+                    " " +
                     (selectedCocktail[`strIngredient${i}`] || ""),
                 imageUrl: `https://www.thecocktaildb.com/images/ingredients/${
                     selectedCocktail[`strIngredient${i}`]
@@ -121,7 +123,9 @@ const FullCocktail: FC = () => {
                         </div>
                     </div>
                 </Fragment>
-            ) : null}
+            ) : (
+                <Spinner />
+            )}
         </main>
     );
 };

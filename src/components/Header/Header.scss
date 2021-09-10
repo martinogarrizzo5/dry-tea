@@ -20,7 +20,24 @@
         height: 100%;
 
         @include mediaQuery($phone-lg) {
-            display: none;
+            position: fixed;
+            z-index: 20;
+            top: 0;
+            left: 0;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+
+            transform: translateX(100vw);
+            opacity: 0;
+            transition: all 0.4s;
+        }
+
+        &--active {
+            opacity: 1;
+            transform: none;
+            background-color: rgb(16, 16, 16);
         }
 
         &__link {
@@ -36,6 +53,13 @@
             border-bottom: 2px solid transparent;
 
             transition: all 0.2s;
+
+            @include mediaQuery($phone-lg) {
+                font-size: 2.5rem;
+                height: auto;
+                width: 80%;
+                margin-bottom: 1rem;
+            }
 
             &:link,
             &:active,
@@ -64,6 +88,7 @@
         @include mediaQuery($phone-lg) {
             display: inline-block;
             position: relative;
+            z-index: 100;
             width: 4.3rem;
             height: 2.8rem;
             cursor: pointer;

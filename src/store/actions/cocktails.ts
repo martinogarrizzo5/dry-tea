@@ -22,3 +22,29 @@ export const searchCocktail = createAsyncThunk(
         }
     }
 );
+
+export const getRandomCocktails = createAsyncThunk(
+    "cocktail/random",
+    async (_, thunkAPI) => {
+        try {
+            const responses = await Promise.all([
+                axios.get("/random.php"),
+                axios.get("/random.php"),
+                axios.get("/random.php"),
+                axios.get("/random.php"),
+            ]);
+            const responsesCocktails = responses.map(
+                (res) => res.data.drinks[0]
+            );
+            return responsesCocktails;
+        } catch (err) {
+            if (!axios.isAxiosError(err)) {
+                throw err;
+            }
+            if (!err.response) {
+                throw err;
+            }
+            return thunkAPI.rejectWithValue(err.response.data);
+        }
+    }
+);

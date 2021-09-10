@@ -28,6 +28,10 @@ const Header: FC<HeaderProps> = (props) => {
         "header__hamburger--active": isNavShown,
     });
 
+    const navClassNames = classNames("header__links", {
+        "header__links--active": isNavShown,
+    });
+
     return (
         <header className="app__header header">
             <img
@@ -36,7 +40,7 @@ const Header: FC<HeaderProps> = (props) => {
                 className="header__logo"
                 onClick={goToHome}
             />
-            <div className="header__links">
+            <div className={navClassNames}>
                 <NavLink
                     to="/"
                     exact

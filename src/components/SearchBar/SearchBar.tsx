@@ -1,12 +1,13 @@
 import { FC, useState, ChangeEventHandler, Fragment, useEffect } from "react";
-
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 import { searchCocktail } from "../../store/actions/cocktails";
 import { RouteComponentProps, withRouter } from "react-router";
 import { MdSearch } from "react-icons/md";
-import "./SearchBar.scss";
 import Spinner from "../Spinner/Spinner";
+import CocktailCard from "../CocktailCard/CocktailCard";
+import "./SearchBar.scss";
 
 interface SearchBarProps extends RouteComponentProps {}
 
@@ -15,8 +16,14 @@ const SearchBar: FC<SearchBarProps> = (props) => {
     const lastSearchedCocktail = useSelector(
         (state: RootState) => state.cocktails.searchedCocktail
     );
-    const [isLoading, setAsLoading] = useState(false);
+    const cocktails = useSelector(
+        (state: RootState) => state.cocktails.cocktails
+    );
+    const randomCocktails = useSelector(
+        (state: RootState) => state.cocktails.randomCocktails
+    );
 
+    const [isLoading, setAsLoading] = useState(false);
     const [searchedCocktail, setSearchedCocktail] = useState(
         lastSearchedCocktail || ""
     );
@@ -64,7 +71,32 @@ const SearchBar: FC<SearchBarProps> = (props) => {
                     <MdSearch className="search-bar__submit__icon" />
                 </button>
             </form>
-            {isLoading && <Spinner className="search-bar__spinner" />}
+            {(isLoading ||
+                (!randomCocktails &&
+                    (!cocktails || !Object.keys(cocktails).length))) && (
+                <Spinner className="search-bar__spinner" />
+            )}
+            {!isLoading && !cocktails && randomCocktails && (
+                <div>
+                    <h2 className="search__no-cocktail__title title2">
+                        Our Selections
+                    </h2>
+                    <div className="search__cocktails">
+                        {randomCocktails ? (
+                            Object.keys(randomCocktails).map((key) => (
+                                <CocktailCard
+                                    key={randomCocktails[key].idDrink}
+                                    id={randomCocktails[key].idDrink}
+                                    name={randomCocktails[key].strDrink}
+                                    img={randomCocktails[key].strDrinkThumb}
+                                />
+                            ))
+                        ) : (
+                            <Spinner />
+                        )}
+                    </div>
+                </div>
+            )}
         </Fragment>
     );
 };

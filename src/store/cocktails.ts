@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { searchCocktail } from "./actions/cocktails";
+import { searchCocktail, getRandomCocktails } from "./actions/cocktails";
 
 type InitialState = {
     searchedCocktail: any;
     cocktails: any;
+    randomCocktails: any;
 };
 
 const initialState: InitialState = {
     searchedCocktail: null,
     cocktails: null,
+    randomCocktails: null,
 };
 
 const cocktailsSlice = createSlice({
@@ -33,6 +35,20 @@ const cocktailsSlice = createSlice({
         });
         builder.addCase(searchCocktail.pending, (state, action) => {
             state.cocktails = null;
+        });
+
+        builder.addCase(getRandomCocktails.fulfilled, (state, action) => {
+            const normalizedCocktails = action.payload.reduce(
+                (byId: any, cocktail: any) => {
+                    byId[cocktail.idDrink] = cocktail;
+                    return byId;
+                },
+                {}
+            );
+            state.randomCocktails = normalizedCocktails;
+        });
+        builder.addCase(getRandomCocktails.pending, (state, action) => {
+            state.randomCocktails = null;
         });
     },
 });

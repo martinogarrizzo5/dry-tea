@@ -10,6 +10,16 @@ const uiSlice = createSlice({
     reducers: {
         toggleNav(state) {
             state.isNavShown = !state.isNavShown;
+
+            // prevent scroll when nav is shown
+            if (state.isNavShown) {
+                window.scrollTo(0, 0);
+                window.onscroll = function () {
+                    window.scrollTo(0, 0);
+                };
+            } else {
+                window.onscroll = () => {};
+            }
         },
     },
 });

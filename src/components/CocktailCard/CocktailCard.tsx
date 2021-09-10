@@ -1,6 +1,6 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import Spinner from "../Spinner/Spinner";
+import Image from "../Image/Image";
 import "./CocktailCard.scss";
 
 interface CocktailCardProps extends RouteComponentProps {
@@ -10,28 +10,16 @@ interface CocktailCardProps extends RouteComponentProps {
 }
 
 const CocktailCard: FC<CocktailCardProps> = (props) => {
-    const [isLoading, setAsLoading] = useState(true);
     const goToCocktailPage = () => {
         props.history.push(`/cocktails/${props.id}`);
     };
 
-    const handleImageLoading = () => {
-        setAsLoading(false);
-    };
-
     return (
         <div className="cocktail-card" onClick={goToCocktailPage}>
-            <img
+            <Image
                 src={props.img + "/preview"}
                 alt="cocktail"
                 className="cocktail-card__img"
-                onLoad={handleImageLoading}
-                style={{ height: isLoading ? "0" : "100%" }}
-                loading="lazy"
-            />
-            <Spinner
-                className="cocktail-card__spinner"
-                style={{ display: isLoading ? "block" : "none" }}
             />
             <span className="cocktail-card__label">{props.name}</span>
         </div>

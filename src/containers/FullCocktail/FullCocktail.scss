@@ -3,18 +3,31 @@
 .full-cocktail {
     padding: 4rem;
 
+    @include mediaQuery($phone-lg) {
+        padding: 2.5rem;
+    }
+
     &__title {
         font-size: 5rem;
         font-family: "Cinzel", sans-serif;
         color: white;
         text-align: center;
         margin-bottom: 4rem;
+
+        @include mediaQuery($phone-lg) {
+            font-size: 4rem;
+            margin-bottom: 2.5rem;
+        }
     }
 
     &__container {
         display: flex;
         max-width: 160rem;
         margin: 0 auto;
+
+        @include mediaQuery($laptop-sm) {
+            flex-direction: column;
+        }
     }
 
     &__left-side {
@@ -29,6 +42,10 @@
             @include mediaQuery($laptop-md) {
                 width: 100%;
                 height: 50rem !important;
+            }
+
+            @include mediaQuery($phone-lg) {
+                height: 38rem !important;
             }
         }
 
@@ -49,7 +66,7 @@
         }
 
         &__tags {
-            margin-top: 1.5rem;
+            margin: 1.3rem 0 2rem;
             &__label {
                 font-size: 2.5rem;
                 font-family: "Cinzel", sans-serif;
@@ -57,10 +74,11 @@
                 margin-right: 2rem;
             }
             &__tag {
+                display: inline-block;
                 background-color: var(--primary-color-light);
                 padding: 0.5rem 1rem;
                 border-radius: 1.5rem;
-                margin-right: 1rem;
+                margin: 1rem 1.3rem 0 0;
             }
         }
     }
@@ -106,7 +124,7 @@
         &__glass {
             display: flex;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
 
             &__glass-name {
                 font-size: 1.8rem;
@@ -116,6 +134,8 @@
         }
 
         &__instructions {
+            margin-bottom: 2rem;
+
             &__text {
                 font-size: 1.8rem;
                 color: var(--sub-title);

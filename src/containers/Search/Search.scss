@@ -5,6 +5,9 @@
     flex-direction: column;
 
     &__cocktails {
+        width: 100%;
+        max-width: 180rem;
+        margin: 0 auto;
         padding: 4rem;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
@@ -13,6 +16,12 @@
 
         @include mediaQuery($phone) {
             padding: 2.5rem;
+        }
+    }
+
+    &__no-cocktail {
+        &__title {
+            text-align: center;
         }
     }
 }
