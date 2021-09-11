@@ -1,0 +1,10 @@
+.language {
+    display: flex;
+    align-items: center;
+
+    & * {
+        height: 4rem;
+        margin-right: 1rem;
+        cursor: pointer;
+    }
+}

@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, ImgHTMLAttributes, useState } from "react";
+import { FC, ImgHTMLAttributes, useState } from "react";
 import Spinner from "../Spinner/Spinner";
 import classNames from "classnames";
 import "./Image.scss";

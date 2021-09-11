@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getRandomCocktails } from "../../store/actions/cocktails";
 import CocktailCard from "../../components/CocktailCard/CocktailCard";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import Spinner from "../../components/Spinner/Spinner";
 import { AppDispatch, RootState } from "../../store/store";
 import "./Search.scss";
 
@@ -17,9 +16,10 @@ const Search: FC = () => {
     );
 
     useEffect(() => {
-        if (!cocktails || !Object.keys(cocktails).length)
+        if (cocktails && !Object.keys(cocktails).length) {
             dispatch(getRandomCocktails());
-    }, []);
+        }
+    }, [cocktails, dispatch]);
 
     const componentToRender = () => {
         if (!cocktails) return;

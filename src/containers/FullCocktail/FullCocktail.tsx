@@ -1,16 +1,22 @@
-import { FC, useEffect, useState, Fragment } from "react";
+import { FC, useEffect, useState, Fragment, useCallback } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { v4 as uuid } from "uuid";
 import { useParams } from "react-router-dom";
 import { RootState } from "../../store/store";
-import "./FullCocktail.scss";
+import { Language } from "../../store/ui";
+
 import Image from "../../components/Image/Image";
 import Spinner from "../../components/Spinner/Spinner";
+import LanguageSelector from "../../components/LanguageSelector/LanguageSelector";
+
+import "./FullCocktail.scss";
 
 const FullCocktail: FC = () => {
     const cocktails = useSelector(
         (state: RootState) => state.cocktails.cocktails
+    );
+    const selectedLanguage = useSelector(
+        (state: RootState) => state.ui.selectedLanguage
     );
     const { id } = useParams() as any;
     const [selectedCocktail, setSelectedCocktail] = useState<any>(null);
@@ -26,13 +32,13 @@ const FullCocktail: FC = () => {
         })();
     }, []);
 
-    let tags: any[] = [];
-    let ingredients: any[] = [];
-    let cocktailGlass = {};
-    if (selectedCocktail) {
-        tags = selectedCocktail.strTags
+    const getTags = () => {
+        return selectedCocktail.strTags
             ? selectedCocktail.strTags.split(",")
             : [];
+    };
+    const getIngredients = useCallback(() => {
+        let ingredients = [];
         for (let i = 1; i <= 15; i++) {
             if (!selectedCocktail[`strIngredient${i}`]) break;
             ingredients.push({
@@ -46,8 +52,24 @@ const FullCocktail: FC = () => {
                 }-Medium.png`,
             });
         }
-        cocktailGlass = selectedCocktail.strGlass;
-    }
+        return ingredients;
+    }, [selectedCocktail]);
+    const getLanguageInstructions = () => {
+        switch (selectedLanguage) {
+            case Language.English:
+                return selectedCocktail.strInstructions || "Not available";
+            case Language.Italian:
+                return selectedCocktail.strInstructionsIT || "Not available";
+            case Language.Spanish:
+                return selectedCocktail.strInstructionsES || "Not available";
+            case Language.French:
+                return selectedCocktail.strInstructionsFR || "Not available";
+            case Language.Germany:
+                return selectedCocktail.strInstructionsDE || "Not available";
+            default:
+                return selectedCocktail.strInstructions;
+        }
+    };
 
     return (
         <main className="app__page full-cocktail">
@@ -72,7 +94,7 @@ const FullCocktail: FC = () => {
                                 </span>
                             </div>
                             <div className="full-cocktail__left-side__tags">
-                                {tags.map((tag: string) => (
+                                {getTags().map((tag: string) => (
                                     <span
                                         className="full-cocktail__left-side__tags__tag"
                                         key={tag}
@@ -88,9 +110,9 @@ const FullCocktail: FC = () => {
                                 INGREDIENTS:
                             </h2>
                             <div className="full-cocktail__right-side__ingredients">
-                                {ingredients.map((ingredient) => (
+                                {getIngredients().map((ingredient) => (
                                     <div
-                                        key={uuid()}
+                                        key={ingredient.baseName}
                                         className="full-cocktail__right-side__ingredients__ingredient"
                                     >
                                         <Image
@@ -109,15 +131,16 @@ const FullCocktail: FC = () => {
                                     GLASS:
                                 </span>
                                 <span className="full-cocktail__right-side__glass__glass-name">
-                                    {cocktailGlass}
+                                    {selectedCocktail.strGlass}
                                 </span>
                             </div>
                             <div className="full-cocktail__right-side__instructions">
                                 <div className="full-cocktail__right-side__title">
-                                    INSTRUCTIONS:
+                                    <span>INSTRUCTIONS:</span>
                                 </div>
+                                <LanguageSelector />
                                 <p className="full-cocktail__right-side__instructions__text">
-                                    {selectedCocktail.strInstructions}
+                                    {getLanguageInstructions()}
                                 </p>
                             </div>
                         </div>

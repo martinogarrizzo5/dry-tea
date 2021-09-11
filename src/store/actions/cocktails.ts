@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { uiActions } from "../ui";
 import axios from "axios";
 import { cocktailsActions } from "../cocktails";
 
@@ -12,6 +13,7 @@ export const searchCocktail = createAsyncThunk(
             );
             return response.data.drinks || [];
         } catch (err) {
+            thunkAPI.dispatch(uiActions.setActionRejected(true));
             if (!axios.isAxiosError(err)) {
                 throw err;
             }
@@ -38,6 +40,7 @@ export const getRandomCocktails = createAsyncThunk(
             );
             return responsesCocktails;
         } catch (err) {
+            thunkAPI.dispatch(uiActions.setActionRejected(true));
             if (!axios.isAxiosError(err)) {
                 throw err;
             }

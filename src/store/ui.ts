@@ -1,7 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export enum Language {
+    English,
+    Spanish,
+    Italian,
+    Germany,
+    French,
+}
+
+type initialState = {
+    isNavShown: boolean;
+    isActionRejected: boolean;
+    selectedLanguage: Language;
+};
+
 const initialState = {
     isNavShown: false,
+    isActionRejected: false,
+    selectedLanguage: Language.English,
 };
 
 const uiSlice = createSlice({
@@ -20,6 +36,12 @@ const uiSlice = createSlice({
             } else {
                 window.onscroll = () => {};
             }
+        },
+        setActionRejected(state, action) {
+            state.isActionRejected = action.payload;
+        },
+        changeLanguage(state, action) {
+            state.selectedLanguage = action.payload;
         },
     },
 });

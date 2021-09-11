@@ -1,5 +1,4 @@
 import { FC, useState, ChangeEventHandler, Fragment, useEffect } from "react";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 import { searchCocktail } from "../../store/actions/cocktails";

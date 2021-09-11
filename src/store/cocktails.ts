@@ -22,6 +22,7 @@ const cocktailsSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
+        // search cocktails
         builder.addCase(searchCocktail.fulfilled, (state, action) => {
             const normalizedCocktails = action.payload.reduce(
                 (byId: any, cocktail: any) => {
@@ -36,7 +37,11 @@ const cocktailsSlice = createSlice({
         builder.addCase(searchCocktail.pending, (state, action) => {
             state.cocktails = null;
         });
+        builder.addCase(searchCocktail.rejected, (state, action) => {
+            state.cocktails = {};
+        });
 
+        // get random cocktails
         builder.addCase(getRandomCocktails.fulfilled, (state, action) => {
             const normalizedCocktails = action.payload.reduce(
                 (byId: any, cocktail: any) => {
@@ -49,6 +54,9 @@ const cocktailsSlice = createSlice({
         });
         builder.addCase(getRandomCocktails.pending, (state, action) => {
             state.randomCocktails = null;
+        });
+        builder.addCase(getRandomCocktails.rejected, (state, action) => {
+            state.randomCocktails = {};
         });
     },
 });
