@@ -9,47 +9,37 @@ import germanyImage from "../../assets/germany.png";
 import "./LanguageSelector.scss";
 
 const LanguageDropdown: FC = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    return (
-        <div className="language">
-            <img
-                src={usaImage}
-                alt="usa-image"
-                onClick={() =>
-                    dispatch(uiActions.changeLanguage(Language.English))
-                }
-            />
-            <img
-                src={italyImage}
-                alt="italy-image"
-                onClick={() =>
-                    dispatch(uiActions.changeLanguage(Language.Italian))
-                }
-            />
-            <img
-                src={spainImage}
-                alt="spanish-image"
-                onClick={() =>
-                    dispatch(uiActions.changeLanguage(Language.Spanish))
-                }
-            />
-            <img
-                src={frenchImage}
-                alt="french-image"
-                onClick={() =>
-                    dispatch(uiActions.changeLanguage(Language.French))
-                }
-            />
-            <img
-                src={germanyImage}
-                alt="germany-image"
-                onClick={() =>
-                    dispatch(uiActions.changeLanguage(Language.Germany))
-                }
-            />
-        </div>
-    );
+  return (
+    <div className="language">
+      <img
+        src={usaImage}
+        alt="usa-image"
+        onClick={() => dispatch(uiActions.changeLanguage(Language.English))}
+      />
+      <img
+        src={italyImage}
+        alt="italy-image"
+        onClick={() => dispatch(uiActions.changeLanguage(Language.Italian))}
+      />
+      <img
+        src={spainImage}
+        alt="spanish-image"
+        onClick={() => dispatch(uiActions.changeLanguage(Language.Spanish))}
+      />
+      <img
+        src={frenchImage}
+        alt="french-image"
+        onClick={() => dispatch(uiActions.changeLanguage(Language.French))}
+      />
+      <img
+        src={germanyImage}
+        alt="germany-image"
+        onClick={() => dispatch(uiActions.changeLanguage(Language.Germany))}
+      />
+    </div>
+  );
 };
 
 export default LanguageDropdown;

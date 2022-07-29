@@ -4,11 +4,11 @@ import cocktailsSlice from "./cocktails";
 import uiSlice from "./ui";
 
 const store = configureStore({
-    reducer: {
-        cocktails: cocktailsSlice.reducer,
-        ui: uiSlice.reducer,
-    },
-    devTools: true,
+  reducer: {
+    cocktails: cocktailsSlice.reducer,
+    ui: uiSlice.reducer,
+  },
+  devTools: true,
 });
 
 export type AppDispatch = typeof store.dispatch;
